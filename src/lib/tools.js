@@ -358,6 +358,17 @@
 				text = String( regexLib.RemoveLineCore.matcher( text ).replaceAll( '' ) );
 
 			return text;
+		},
+
+		/**
+		 * Add random hash as a GET parameter in image url, to prevent caching.
+		 * @param {String} content
+		 * @returns {String}
+		 */
+		fixCacheableLinksInCSS: function( content ) {
+			return String(content).replace( /(url\()([^)]*?\.(?:png|jpg|gif))(?!\?t=).*?(\))/g, function( match, $1, $2, $3 ) {
+				return $1 + $2 + '?t=' + CKBuilder.options.timestamp + $3;
+			} );
 		}
 	};
 }() );

@@ -35,9 +35,39 @@ this.CKBuilder = ( function() {
 	} catch ( e ) {
 		isMinified = false;
 	}
-	var now = new Date();
-	var timestamp = Integer.toString( now.getUTCFullYear() % 1000, 36 ) + Integer.toString( now.getUTCMonth(), 36 ) + Integer.toString( now.getUTCDate(), 36 ) + Integer.toString( now.getUTCHours(), 36 );
-	timestamp = timestamp.toUpperCase();
+	var timestamp = getRandomHash();
+
+	/**
+	 * Generate six characters length random hash from characters defined below
+	 * @returns {String}
+	 */
+	function getRandomHash() {
+		var string = 'abcdefghijklmnopqrstuvwxyz0123456789',
+		range = string.length,
+		result = '';
+
+		var i = 6;
+		while( i-- ) {
+			result += string[ getRandomFromRange( 0, range ) ];
+		}
+
+		return result;
+	}
+
+	/**
+	 * Returns random number from range defined by arguments
+	 *
+	 * (0, 2) <0, 1>
+	 * (0, 5) <0, 1, 2, 3, 4>
+	 * (6, 4) <6, 7, 8, 9>
+	 * @param {Number} start
+	 * @param {Number} rangeLength
+	 * @returns {Number}
+	 * @static
+	 */
+	function getRandomFromRange( start, rangeLength ) {
+		return Math.floor( Math.random() * rangeLength ) + start;
+	}
 
 	return {
 		isMinified : isMinified,

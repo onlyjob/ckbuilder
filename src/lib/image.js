@@ -211,6 +211,8 @@ importClass( java.awt.image.BufferedImage );
 			var cssHidpiPrefix = hidpi ? ".cke_hidpi" : "",
 				iconsStrip = hidpi ? "icons_hidpi.png" : "icons.png";
 
+			iconsStrip += ( '?t=' + CKBuilder.options.timestamp );
+
 			for ( i = 0; i < images.length; i++ ) {
 				var buttonName = images[ i ].fileName.match( /.*?(?=\.|-rtl)/ ),
 					buttonSelector = ".cke_button__" + buttonName + '_icon',

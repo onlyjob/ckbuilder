@@ -90,7 +90,8 @@ importPackage( com.yahoo.platform.yui.compressor );
 			isImported = false,
 			parentPath,
 			path = sourceLocation.getCanonicalPath(),
-			lines = CKBuilder.io.readFile( new File( path ) ).split( /\r\n|\n|\r/ );
+			lines = CKBuilder.io.readFile( new File( path ) ).split( /\r\n|\n|\r/ ),
+			result;
 
 		if ( !parentLocation ) {
 			parentLocation = sourceLocation;
@@ -129,9 +130,11 @@ importPackage( com.yahoo.platform.yui.compressor );
 		}
 
 		if ( isImported )
-			return removeComments( out.join( "\r\n" ) );
+			result = removeComments( out.join( "\r\n" ) );
 		else
-			return out.join( "\r\n" ).replace( /(\r\n){2,}/g, "\r\n" );
+			result = out.join( "\r\n" ).replace( /(\r\n){2,}/g, "\r\n" );
+
+		return CKBuilder.tools.fixCacheableLinksInCSS( result );
 	}
 
 	/**
